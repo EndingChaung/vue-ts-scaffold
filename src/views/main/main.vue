@@ -1,7 +1,6 @@
 <template>
   <div class="main-wrap">
-    {{ data.pageName }}
-    <div>-- @@ --</div>
+    <div class="main-tab">jdjdjkj</div>
   </div>
 </template>
 

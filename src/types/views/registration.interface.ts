@@ -4,6 +4,10 @@ export interface RegistrationData {
   tableData: any[];
   formInline: object;
   drawer: boolean;
+  loading: boolean;
+  maxHeight: number;
+  total: number;
+  byteData?: any;
 }
 
 // VUEX rejistration.State 参数类型
@@ -14,4 +18,8 @@ export interface RegistrationState {
 }
 
 // GET_DATA_ASYN 接口参数类型
-// export interface DataOptions {}
+export interface DataOptions {
+  ReportType: number;
+  PageIndex: number;
+  PageCount: number;
+}

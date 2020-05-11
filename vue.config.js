@@ -34,8 +34,22 @@ module.exports = {
     config.resolve.modules.push(path.resolve(__dirname, 'src'));
   },
   devServer: {
-    port: 8080, // 端口
-    disableHostCheck: true
+    open: true,
+    host: 'localhost',
+    port: 8081, //端口
+    https: false,
+    // 以上的ip和端口是我们本机的;下面为需要跨域的
+    proxy: {
+      //配置跨域
+      '/v1': {
+        target: 'http://192.168.70.57:8081/v1/', //这里后台的地址模拟的;应该填写你们真实的后台接口
+        ws: true,
+        changOrigin: true, //允许跨域
+        pathRewrite: {
+          '^/v1': '' //请求的时候使用这个api就可以
+        }
+      }
+    }
     // proxy: 'https://www.easy-mock.com' // 设置代理
   }
 };

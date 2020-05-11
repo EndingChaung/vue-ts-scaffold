@@ -1,7 +1,7 @@
 import { Component, Vue } from 'vue-property-decorator';
 import { Getter, Action } from 'vuex-class';
 import { RealnameData } from '@/types/views/realname.interface';
-// import {  } from "@/components" // 组件
+import * as RejistrationApi from '@/api/rejistration';
 
 @Component({})
 export default class Realname extends Vue {
@@ -14,37 +14,15 @@ export default class Realname extends Vue {
   // data
   data: RealnameData = {
     pageName: 'realname',
+    maxHeight: window.innerHeight - 265,
     drawer: false,
+    loading: false,
+    total: 0,
     formInline: {
       user: '',
       region: ''
     },
-    tableData: [
-      {
-        date: '2020-05-02',
-        name: '杀机四',
-        province: '北京',
-        city: '朝阳区',
-        address: '北京市朝阳区沙江路 1518 弄',
-        zip: 200333
-      },
-      {
-        date: '2020-05-04',
-        name: '杀机四',
-        province: '北京',
-        city: '朝阳区',
-        address: '北京市朝阳区沙江路 1517 弄',
-        zip: 200333
-      },
-      {
-        date: '2020-05-01',
-        name: '杀机四',
-        province: '北京',
-        city: '朝阳区',
-        address: '北京市朝阳区沙江路 1519 弄',
-        zip: 200333
-      }
-    ]
+    tableData: []
   };
 
   created() {
@@ -56,7 +34,12 @@ export default class Realname extends Vue {
   }
 
   mounted() {
-    //
+    this.data.loading = true;
+    RejistrationApi.getListData(2, 1, 10).then((res: any) => {
+      this.data.tableData = res.reportModel;
+      this.data.total = res.reportCount;
+      this.data.loading = false;
+    });
   }
 
   // 初始化函数

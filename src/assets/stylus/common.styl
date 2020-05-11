@@ -4,12 +4,46 @@ body
   font-size 14px
   margin 0
   height 100%
+/*自定义加载样式*/
+.self-loading > .el-loading-spinner .path, .el-loading-spinner .el-loading-text
+  color #1aa094 !important
+  stroke #1aa094 !important
+.main-tab
+  position relative
+  padding 8px
+  margin-bottom 20px
+  box-shadow 0 0 14px #dddddd
+  min-height 240px
+.main-tab:before
+  content ''
+  width 5px
+  height 100%
+  background-color RGBA(0, 150, 136, 1.00)
+  position absolute
+  top 0
+  left -5px
+/*自定义默认按钮样式*/
+.el-button--primary
+  background-color RGBA(0, 150, 136, 1.00)
+  border-color RGBA(0, 150, 136, 1.00)
+.el-pagination.is-background .el-pager li:not(.disabled).active
+  background-color RGBA(0, 150, 136, 1.00) !important
+/*自定义Tab样式*/
+.app-container .el-main .header-nav .tabs .active-line
+  background-color RGBA(0, 150, 136, 1.00) !important
 .el-submenu .el-menu-item
-  min-width 160px
+  min-width 200px
 .el-menu-item.is-active
-  background-color #252F45 !important
+  // background-color #252F45 !important
+  background-color #009688 !important
 .el-menu-item-group__title
   padding 0
+.el-menu-item, .el-submenu__title
+  height 45px
+  line-height 45px
+.el-submenu .el-menu-item
+  height 40px
+  line-height 40px
 // 报告预览抽屉样式
 .pdf-drawer
   height 100%
@@ -21,3 +55,7 @@ body
   .embed-sty
     width 476px
     height 668px
+/*自定义分页器样式*/
+.report-pagination
+  text-align right
+  padding 20px 0

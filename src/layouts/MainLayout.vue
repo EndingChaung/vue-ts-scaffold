@@ -14,17 +14,17 @@ export default {
           title: '数据统计',
           name: '1',
           content: 'Tab 1 content'
+        },
+        {
+          title: 'Tab 2',
+          name: '2',
+          content: 'Tab 2 content'
+        },
+        {
+          title: 'Tab 3',
+          name: '3',
+          content: 'Tab 3 content'
         }
-        // {
-        //   title: 'Tab 2',
-        //   name: '2',
-        //   content: 'Tab 2 content'
-        // },
-        // {
-        //   title: 'Tab 3',
-        //   name: '3',
-        //   content: 'Tab 3 content'
-        // },
         // {
         //   title: 'Tab 4',
         //   name: '4',
@@ -91,6 +91,9 @@ export default {
         <img class="tencen-c" src="../assets/images/tencen-c.png" alt="" />
         <div class="line-h"></div>
         <img src="../assets/images/logo-bw.png" alt="" />
+        <div class="isCollapse" @click="isCollapse = !isCollapse">
+          <i :class="!isCollapse ? 'el-icon-s-fold' : 'el-icon-s-unfold'"></i>
+        </div>
       </div>
       <div class="header-content-right">
         <div class="account">
@@ -102,9 +105,9 @@ export default {
     </el-header>
     <el-container>
       <el-aside :class="!isCollapse ? 'nav-aside' : 'isCollapse-nav-aside'">
-        <div class="isCollapse" @click="isCollapse = !isCollapse">
+        <!-- <div class="isCollapse" @click="isCollapse = !isCollapse">
           <i :class="!isCollapse ? 'el-icon-s-fold' : 'el-icon-s-unfold'"></i>
-        </div>
+        </div> -->
         <el-menu
           :default-active="activeMenu"
           class="el-menu-vertical-demo"
@@ -117,31 +120,38 @@ export default {
           :collapse="isCollapse"
         >
           <el-menu-item index="/main">
-            <i class="el-icon-document"></i>
+            <i class="el-icon-data-analysis"></i>
             <span slot="title">数据统计</span>
           </el-menu-item>
           <el-submenu index="/report">
             <template slot="title">
-              <i class="el-icon-menu"></i>
+              <i class="el-icon-s-order"></i>
               <span slot="title">报告中心</span>
             </template>
             <el-menu-item-group>
               <el-menu-item index="/registration">
-                注册报告
+                <i class="el-icon-user"></i>
+                <span>注册报告</span>
               </el-menu-item>
             </el-menu-item-group>
             <el-menu-item-group>
-              <el-menu-item index="/realname">实名报告</el-menu-item>
+              <el-menu-item index="/realname">
+                <i class="el-icon-s-custom"></i>
+                <span>实名报告</span>
+              </el-menu-item>
             </el-menu-item-group>
             <el-menu-item-group>
-              <el-menu-item index="/sign">签署报告</el-menu-item>
+              <el-menu-item index="/sign">
+                <i class="el-icon-s-check"></i>
+                <span>签署报告</span>
+              </el-menu-item>
             </el-menu-item-group>
           </el-submenu>
         </el-menu>
       </el-aside>
       <el-main>
         <div class="header-nav">
-          <div class="tabs">
+          <!-- <div class="tabs">
             <div
               class="tab-pane"
               v-for="(item, index) in editableTabs"
@@ -154,7 +164,7 @@ export default {
               class="active-line"
               :style="{ left: tabIndex * 89 + 'px' }"
             ></div>
-          </div>
+          </div> -->
         </div>
         <div class="main-container">
           <transition>
@@ -176,10 +186,12 @@ export default {
 .app-container
   height 100%
   .header-content
+    height 70px !important
     display flex
     flex-direction row
     justify-content space-between
     align-items center
+    border-bottom 5px solid #1AA094 !important
     .header-content-left, .header-content-right
       display flex
       flex-direction row
@@ -198,22 +210,22 @@ export default {
         height 28px
       .account
         padding 0 20px
+  .isCollapse
+    text-align center
+    padding-left 20px
+    font-size 20px
   .el-header, .el-footer
     background-color #ffffff
     border-bottom 1px solid #E6E6E6
     color #333
   .el-aside
     background-color #161F30
-    text-align center
-    .isCollapse
-      font-size 20px
-      line-height 65px
     .el-menu-vertical-demo
       border-right 0
     i
       color #ffffff
   .nav-aside
-    width 160px !important
+    width 200px !important
     transition all .5s ease
   .isCollapse-nav-aside
     width 65px !important

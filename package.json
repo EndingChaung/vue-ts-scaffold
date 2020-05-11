@@ -23,6 +23,7 @@
   },
   "devDependencies": {
     "@types/js-cookie": "^2.2.4",
+    "@types/js-md5": "^0.4.2",
     "@vue/cli-plugin-babel": "^4.0.0",
     "@vue/cli-plugin-eslint": "^4.0.0",
     "@vue/cli-plugin-router": "^4.0.0",

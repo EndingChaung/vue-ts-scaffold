@@ -6,17 +6,17 @@ export const ONLINEHOST: string = 'https://xxx.com';
 /**
  * 测试环境
  */
-export const QAHOST: string = 'http://xxx.com';
+export const QAHOST: string = 'http://192.168.70.57:8081';
 
 /**
  * 线上mock
  */
-export const MOCKHOST: string = 'http://xxx.com';
+export const MOCKHOST: string = 'https://www.easy-mock.com';
 
 /**
  * 是否mock
  */
-export const ISMOCK: boolean = true;
+export const ISMOCK: boolean = false;
 
 /**
  * 当前的host  ONLINEHOST | QAHOST | MOCKHOST

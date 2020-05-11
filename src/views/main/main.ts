@@ -1,5 +1,5 @@
 import { Component, Vue } from 'vue-property-decorator';
-import { Getter, Action } from 'vuex-class';
+// import { Getter, Action } from 'vuex-class';
 import { MainData } from '@/types/views/main.interface';
 // import {  } from "@/components" // 组件
 

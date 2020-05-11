@@ -39,7 +39,8 @@ export default class About extends Vue {
 
   signIn() {
     setToken('123456');
-    this.$router.push('/main');
+    const router: any = this.$router;
+    router.push('/main');
   }
 }
 </script>

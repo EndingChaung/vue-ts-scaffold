@@ -1,5 +1,5 @@
 import { Component, Vue } from 'vue-property-decorator';
-import { Getter, Action } from 'vuex-class';
+// import { Getter, Action } from 'vuex-class';
 import { LoginData } from '@/types/views/login.interface';
 import { setToken } from '@/utils/common';
 
@@ -43,7 +43,8 @@ export default class Login extends Vue {
     const data = this.data.form;
     if (data.name === 'admin' && data.pass === '1qazxsw2') {
       setToken('123456');
-      this.$router.push('/main');
+      const router: any = this.$router;
+      router.push('/main');
     } else {
       this.$message.error({
         message: '登录错误，请输入正确的登录信息'

@@ -4,6 +4,9 @@ export interface RealnameData {
   tableData: any[];
   formInline: object;
   drawer: boolean;
+  loading: boolean;
+  maxHeight: number;
+  total: number;
 }
 
 // VUEX realname.State 参数类型

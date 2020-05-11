@@ -140,12 +140,11 @@ export default {
 `;
 
 // api 接口模版
-const apiTep = `import Api from '@/utils/request'
+const apiTep = `import Api from '@/utils/request';
 
 export const getData = () => {
-  return Api.getData()
-}
-
+  return Api.getData();
+};
 `;
 
 fs.mkdirSync(`${basePath}/views/${dirName}`); // mkdir

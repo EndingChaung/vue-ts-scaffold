@@ -16,13 +16,11 @@
             <el-form-item class="center-form-item">
               <el-input
                 placeholder="请输入密码"
+                type="password"
                 v-model="data.form.pass"
               ></el-input>
             </el-form-item>
             <a href="#">没有账号？请联系实槌系统管理员。</a>
-            <!-- <el-form-item class="center-form-item">
-              <button @click="doSubmit">Sign In</button>
-            </el-form-item> -->
           </el-form>
           <button @click="doSubmit">Sign In</button>
         </div>

@@ -1,11 +1,18 @@
-import { RegistrationState } from '@/types/views/registration.interface';
+import {
+  RegistrationState,
+  DataOptions
+} from '@/types/views/registration.interface';
 import { GetterTree, MutationTree, ActionTree } from 'vuex';
-import * as RejistrationApi from '@/api/rejistration';
 
 const state: RegistrationState = {
   registration: {
     registrationauthor: undefined
   }
+};
+const listOptions: DataOptions = {
+  ReportType: 1,
+  PageIndex: 1,
+  PageCount: 10
 };
 
 // 强制使用getter获取state
@@ -31,9 +38,6 @@ const actions: ActionTree<RegistrationState, any> = {
   UPDATE_STATE_ASYN({ commit }, data: RegistrationState) {
     commit('UPDATE_STATE', data);
   }
-  // GET_DATA_ASYN({ commit, state: LoginState }) {
-  //   Rejistration.getData()
-  // }
 };
 
 export default {
