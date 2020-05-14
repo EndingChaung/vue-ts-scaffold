@@ -12,6 +12,12 @@ export const getListData = (
   };
   return Api.getListData(params, 'GET');
 };
+export const SearchRegisterReportInfo = (AccountId: string) => {
+  let params = {
+    AccountId: AccountId
+  };
+  return Api.SearchRegisterReportInfo(params, 'GET');
+};
 export const downReport = (ReportId: number) => {
   let params = {
     Id: ReportId

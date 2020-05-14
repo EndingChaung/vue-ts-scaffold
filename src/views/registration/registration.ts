@@ -1,5 +1,6 @@
 import { Component, Vue } from 'vue-property-decorator';
 import { Getter, Action } from 'vuex-class';
+import { base64ToBlob } from '@/utils/common';
 import { RegistrationData } from '@/types/views/registration.interface';
 import * as RejistrationApi from '@/api/rejistration';
 
@@ -19,10 +20,10 @@ export default class Rejistration extends Vue {
     maxHeight: window.innerHeight - 265,
     byteData: undefined,
     formInline: {
-      user: '',
-      region: ''
+      accountId: ''
     },
     total: 0,
+    currentPage: 1,
     tableData: []
   };
 
@@ -36,11 +37,7 @@ export default class Rejistration extends Vue {
 
   mounted() {
     this.data.loading = true;
-    RejistrationApi.getListData(1, 1, 10).then((res: any) => {
-      this.data.tableData = res.reportModel;
-      this.data.total = res.reportCount;
-      this.data.loading = false;
-    });
+    this.getDataList(1, 1, 10);
   }
 
   // 初始化函数
@@ -48,64 +45,49 @@ export default class Rejistration extends Vue {
     //
   }
 
-  handleClick(index: any, row: any) {
+  getDataList(type: number, page: number, pageCount: number) {
+    RejistrationApi.getListData(type, page, pageCount).then((res: any) => {
+      this.data.tableData = res.reportModel;
+      this.data.total = res.reportCount;
+      this.data.loading = false;
+    });
+  }
+
+  SearchRegisterReportInfo(accountId: string) {
+    RejistrationApi.SearchRegisterReportInfo(accountId).then((res: any) => {
+      this.data.tableData = res.reportModel;
+      this.data.total = res.reportCount;
+      this.data.loading = false;
+    });
+  }
+
+  handleClick(row: any) {
     this.data.drawer = true;
     RejistrationApi.downReport(row.Id).then((res: any) => {
       const base64 = res.downReportModel.FileByte;
-      this.base64ToBlob(base64, 'application/pdf').then(result => {
-        var url = URL.createObjectURL(result);
+      base64ToBlob(base64, 'application/pdf').then(result => {
+        const url = URL.createObjectURL(result);
         this.data.byteData = url;
       });
     });
   }
 
-  isBase64(str: string) {
-    // eslint-disable-next-line no-useless-escape
-    const notBase64 = /[^A-Z0-9+\/=]/i;
-    const len = str.length;
-    if (!len || len % 4 !== 0 || notBase64.test(str)) {
-      return false;
-    }
-    const firstPaddingChar = str.indexOf('=');
-    return (
-      firstPaddingChar === -1 ||
-      firstPaddingChar === len - 1 ||
-      (firstPaddingChar === len - 2 && str[len - 1] === '=')
-    );
-  }
-
-  base64ToBlob(b64data = '', contentType = '', sliceSize = 512) {
-    return new Promise((resolve, reject) => {
-      // 使用 atob() 方法将数据解码
-      let byteCharacters = atob(b64data);
-      let byteArrays = [];
-      for (
-        let offset = 0;
-        offset < byteCharacters.length;
-        offset += sliceSize
-      ) {
-        let slice = byteCharacters.slice(offset, offset + sliceSize);
-        let byteNumbers = [];
-        for (let i = 0; i < slice.length; i++) {
-          byteNumbers.push(slice.charCodeAt(i));
-        }
-        // 8 位无符号整数值的类型化数组。内容将初始化为 0。
-        // 如果无法分配请求数目的字节，则将引发异常。
-        byteArrays.push(new Uint8Array(byteNumbers));
-      }
-      let result = new Blob(byteArrays, {
-        type: contentType
-      });
-      result = Object.assign(result, {
-        // jartto: 这里一定要处理一下 URL.createObjectURL
-        preview: URL.createObjectURL(result)
-      });
-      resolve(result);
-    });
+  changePage(val: any) {
+    this.data.currentPage = val;
+    this.getDataList(1, val, 10);
   }
 
   // 提交表单筛选条件
   onSubmit() {
-    console.log('submit!', this.data.formInline);
+    this.data.loading = true;
+    const aId = this.data.formInline.accountId;
+    this.SearchRegisterReportInfo(aId);
+  }
+
+  resetForm(formName: string | number) {
+    const that = this;
+    const ref: any = this.$refs[formName];
+    ref.resetFields();
+    that.getDataList(1, 1, 10);
   }
 }

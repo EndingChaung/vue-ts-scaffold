@@ -42,7 +42,8 @@ module.exports = {
     proxy: {
       //配置跨域
       '/v1': {
-        target: 'http://192.168.70.57:8081/v1/', //这里后台的地址模拟的;应该填写你们真实的后台接口
+        // target: 'http://192.168.70.57:8081/v1/', //这里后台的地址模拟的;应该填写你们真实的后台接口
+        target: 'http://172.19.96.12:8081/v1/',
         ws: true,
         changOrigin: true, //允许跨域
         pathRewrite: {

@@ -28,10 +28,14 @@ router.beforeEach((to, from, next) => {
   } else if (token && to.name === LOGIN_PAGE_NAME) {
     // 已登录且要跳转的页面是登录页
     next({
-      name: 'main' // 跳转到 index 页
+      name: 'main__index' // 跳转到 main 页
     });
   } else {
     if (token) {
+      console.log(
+        token,
+        '==========================router======================='
+      );
       next(); // 跳转
     } else {
       next({

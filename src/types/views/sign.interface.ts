@@ -2,11 +2,16 @@
 export interface SignData {
   pageName: string;
   tableData: any[];
-  formInline: object;
+  formInline: {
+    accountId: string;
+    countractId: string;
+  };
   drawer: boolean;
   loading: boolean;
   maxHeight: number;
   total: number;
+  currentPage: number;
+  byteData?: any;
 }
 
 // VUEX sign.State 参数类型

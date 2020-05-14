@@ -1,7 +1,9 @@
 import { Component, Vue } from 'vue-property-decorator';
 import { Getter, Action } from 'vuex-class';
+import { base64ToBlob } from '@/utils/common';
 import { RealnameData } from '@/types/views/realname.interface';
 import * as RejistrationApi from '@/api/rejistration';
+import * as RealnameApi from '@/api/realname';
 
 @Component({})
 export default class Realname extends Vue {
@@ -17,10 +19,11 @@ export default class Realname extends Vue {
     maxHeight: window.innerHeight - 265,
     drawer: false,
     loading: false,
+    byteData: undefined,
     total: 0,
+    currentPage: 1,
     formInline: {
-      user: '',
-      region: ''
+      accountId: ''
     },
     tableData: []
   };
@@ -35,11 +38,7 @@ export default class Realname extends Vue {
 
   mounted() {
     this.data.loading = true;
-    RejistrationApi.getListData(2, 1, 10).then((res: any) => {
-      this.data.tableData = res.reportModel;
-      this.data.total = res.reportCount;
-      this.data.loading = false;
-    });
+    this.getDataList(2, 1, 10);
   }
 
   // 初始化函数
@@ -47,11 +46,49 @@ export default class Realname extends Vue {
     //
   }
 
-  handleClick(index: any, row: any) {
-    this.data.drawer = true;
+  getDataList(type: number, page: number, pageCount: number) {
+    RejistrationApi.getListData(type, page, pageCount).then((res: any) => {
+      this.data.tableData = res.reportModel;
+      this.data.total = res.reportCount;
+      this.data.loading = false;
+    });
   }
 
+  SearchRealNameReportInfo(accountId: string) {
+    RealnameApi.SearchRealNameReportInfo(accountId).then((res: any) => {
+      this.data.tableData = res.reportModel;
+      this.data.total = res.reportCount;
+      this.data.loading = false;
+    });
+  }
+
+  handleClick(row: any) {
+    this.data.drawer = true;
+    RejistrationApi.downReport(row.Id).then((res: any) => {
+      const base64 = res.downReportModel.FileByte;
+      base64ToBlob(base64, 'application/pdf').then(result => {
+        const url = URL.createObjectURL(result);
+        this.data.byteData = url;
+      });
+    });
+  }
+
+  changePage(val: any) {
+    this.data.currentPage = val;
+    this.getDataList(2, val, 10);
+  }
+
+  // 提交表单筛选条件
   onSubmit() {
-    console.log('submit!', this.data.formInline);
+    this.data.loading = true;
+    const aId = this.data.formInline.accountId;
+    this.SearchRealNameReportInfo(aId);
+  }
+
+  resetForm(formName: string | number) {
+    const that = this;
+    const ref: any = this.$refs[formName];
+    ref.resetFields();
+    that.getDataList(2, 1, 10);
   }
 }

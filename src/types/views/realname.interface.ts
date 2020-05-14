@@ -2,11 +2,15 @@
 export interface RealnameData {
   pageName: string;
   tableData: any[];
-  formInline: object;
+  formInline: {
+    accountId: string;
+  };
   drawer: boolean;
   loading: boolean;
   maxHeight: number;
   total: number;
+  currentPage: number;
+  byteData?: any;
 }
 
 // VUEX realname.State 参数类型

@@ -2,11 +2,14 @@
 export interface RegistrationData {
   pageName: string;
   tableData: any[];
-  formInline: object;
+  formInline: {
+    accountId: string;
+  };
   drawer: boolean;
   loading: boolean;
   maxHeight: number;
   total: number;
+  currentPage: number;
   byteData?: any;
 }
 

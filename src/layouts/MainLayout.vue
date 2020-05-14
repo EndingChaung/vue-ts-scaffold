@@ -25,26 +25,6 @@ export default {
           name: '3',
           content: 'Tab 3 content'
         }
-        // {
-        //   title: 'Tab 4',
-        //   name: '4',
-        //   content: 'Tab 2 content'
-        // },
-        // {
-        //   title: 'Tab 5',
-        //   name: '5',
-        //   content: 'Tab 5 content'
-        // },
-        // {
-        //   title: 'Tab 6',
-        //   name: '6',
-        //   content: 'Tab 2 content'
-        // },
-        // {
-        //   title: 'Tab 7',
-        //   name: '7',
-        //   content: 'Tab 2 content'
-        // }
       ],
       tabIndex: 0
     };
@@ -65,7 +45,8 @@ export default {
       console.log(key, keyPath);
     },
     handleSelect(key: any, keyPath: any) {
-      this.$router.push(key);
+      const router: any = this.$router;
+      router.push(key);
     },
     goActive(e: any) {
       // this.tabIndex = e;
@@ -78,7 +59,8 @@ export default {
     },
     loginOut() {
       setToken('');
-      this.$router.replace('/login');
+      const router: any = this.$router;
+      router.replace('/login');
     }
   }
 };

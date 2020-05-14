@@ -35,8 +35,8 @@ export default [
     }
   },
   {
-    path: '/main',
-    name: 'main',
+    path: '/home',
+    name: 'home',
     component: () => import('@/layouts/MainLayout.vue'),
     meta: {
       icon: '',

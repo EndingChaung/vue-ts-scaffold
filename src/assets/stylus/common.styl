@@ -4,6 +4,11 @@ body
   font-size 14px
   margin 0
   height 100%
+td
+  .cell
+    overflow hidden !important //超出的文本隐藏
+    text-overflow ellipsis !important //溢出用省略号显示
+    white-space nowrap !important //溢出不换行
 /*自定义加载样式*/
 .self-loading > .el-loading-spinner .path, .el-loading-spinner .el-loading-text
   color #1aa094 !important
@@ -13,7 +18,6 @@ body
   padding 8px
   margin-bottom 20px
   box-shadow 0 0 14px #dddddd
-  min-height 240px
 .main-tab:before
   content ''
   width 5px
@@ -48,13 +52,16 @@ body
 .pdf-drawer
   height 100%
   width 100%
+  padding 20px
   display flex
   flex-direction row
   justify-content center
   align-items center
   .embed-sty
-    width 476px
-    height 668px
+    min-width 476px
+    min-height 668px
+    width 100%
+    height 100%
 /*自定义分页器样式*/
 .report-pagination
   text-align right

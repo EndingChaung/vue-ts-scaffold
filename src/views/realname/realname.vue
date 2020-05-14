@@ -4,17 +4,18 @@
       size="small"
       :inline="true"
       :model="data.formInline"
+      ref="realnameForm"
       class="demo-form-inline"
     >
-      <el-form-item label="用户唯一标识：">
+      <el-form-item prop="accountId" label="用户唯一标识：">
         <el-input
-          v-model="data.formInline.user"
+          v-model="data.formInline.accountId"
           placeholder="请填写AccoundId"
         ></el-input>
       </el-form-item>
       <el-form-item>
         <el-button type="primary" @click="onSubmit">查 询</el-button>
-        <el-button>重 置</el-button>
+        <el-button @click="resetForm('realnameForm')">重 置</el-button>
       </el-form-item>
     </el-form>
     <el-table
@@ -38,7 +39,6 @@
         align="center"
         prop="AccountId"
         label="用户编号"
-        width="220"
       ></el-table-column>
       <el-table-column align="center" prop="ReportName" label="报告名称">
       </el-table-column>
@@ -53,10 +53,7 @@
       </el-table-column>
       <el-table-column align="center" fixed="right" label="操作" width="150">
         <template slot-scope="scope">
-          <el-button
-            type="danger"
-            size="mini"
-            @click="handleClick(scope.$index, scope.row)"
+          <el-button type="danger" size="mini" @click="handleClick(scope.row)"
             >查看报告</el-button
           >
         </template>
@@ -67,6 +64,8 @@
       background
       layout="prev, pager, next"
       :total="data.total"
+      :current-page="data.currentPage"
+      @current-change="changePage"
     >
     </el-pagination>
     <el-drawer
@@ -78,7 +77,7 @@
       <div class="pdf-drawer">
         <embed
           class="embed-sty"
-          src="http://mozilla.github.io/pdf.js/web/compressed.tracemonkey-pldi-09.pdf"
+          :src="data.byteData"
           controls="smallconsole"
           type="application/pdf"
         />
