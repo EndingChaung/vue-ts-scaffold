@@ -1,69 +1,70 @@
 <script lang="ts">
+import { Component, Vue } from 'vue-property-decorator';
+import { MainLayoutData } from '@/types/index';
 import { setToken } from '@/utils/common';
 
-export default {
-  name: 'MainLayout',
-  components: {},
-  data() {
-    return {
-      isCollapse: false,
-      activeMenu: this.$route.path,
-      editableTabsValue: '0',
-      editableTabs: [
-        {
-          title: '数据统计',
-          name: '1',
-          content: 'Tab 1 content'
-        },
-        {
-          title: 'Tab 2',
-          name: '2',
-          content: 'Tab 2 content'
-        },
-        {
-          title: 'Tab 3',
-          name: '3',
-          content: 'Tab 3 content'
-        }
-      ],
-      tabIndex: 0
-    };
-  },
-  computed: {
-    keepAliveInclude() {
-      return ['home'];
-    },
-    keepAliveExclude() {
-      return [];
-    }
-  },
-  methods: {
-    handleOpen(key: any, keyPath: any) {
-      console.log(key, keyPath);
-    },
-    handleClose(key: any, keyPath: any) {
-      console.log(key, keyPath);
-    },
-    handleSelect(key: any, keyPath: any) {
-      const router: any = this.$router;
-      router.push(key);
-    },
-    goActive(e: any) {
-      // this.tabIndex = e;
-    },
-    addTab() {
-      // this.tabIndex = e;
-    },
-    removeTab() {
-      // this.tabIndex = e;
-    },
-    loginOut() {
-      setToken('');
-      const router: any = this.$router;
-      router.replace('/login');
-    }
+@Component({})
+export default class MainLayout extends Vue {
+  data: MainLayoutData = {
+    isCollapse: false,
+    editableTabsValue: '0',
+    editableTabs: [
+      {
+        title: '数据统计',
+        name: '1',
+        content: 'Tab 1 content'
+      },
+      {
+        title: 'Tab 2',
+        name: '2',
+        content: 'Tab 2 content'
+      },
+      {
+        title: 'Tab 3',
+        name: '3',
+        content: 'Tab 3 content'
+      }
+    ],
+    tabIndex: 0
+  };
+
+  get keepAliveInclude() {
+    return ['home'];
   }
-};
+
+  get keepAliveExclude() {
+    return [];
+  }
+
+  get activeMenu(): string {
+    return this.$route.path || this.$store.getters.navActive;
+  }
+
+  handleOpen(key: any, keyPath: any) {
+    // console.log(key, keyPath);
+  }
+  handleClose(key: any, keyPath: any) {
+    // console.log(key, keyPath);
+  }
+  handleSelect(key: any, keyPath: any) {
+    const router: any = this.$router;
+    router.push(key);
+  }
+  goActive(e: any) {
+    // this.tabIndex = e;
+  }
+  addTab() {
+    // this.tabIndex = e;
+  }
+  removeTab() {
+    // this.tabIndex = e;
+  }
+  loginOut() {
+    setToken('');
+    const router: any = this.$router;
+    router.replace('/login');
+  }
+}
 </script>
 
 <template>
@@ -73,8 +74,10 @@ export default {
         <img class="tencen-c" src="../assets/images/tencen-c.png" alt="" />
         <div class="line-h"></div>
         <img src="../assets/images/logo-bw.png" alt="" />
-        <div class="isCollapse" @click="isCollapse = !isCollapse">
-          <i :class="!isCollapse ? 'el-icon-s-fold' : 'el-icon-s-unfold'"></i>
+        <div class="isCollapse" @click="data.isCollapse = !data.isCollapse">
+          <i
+            :class="!data.isCollapse ? 'el-icon-s-fold' : 'el-icon-s-unfold'"
+          ></i>
         </div>
       </div>
       <div class="header-content-right">
@@ -86,7 +89,9 @@ export default {
       </div>
     </el-header>
     <el-container>
-      <el-aside :class="!isCollapse ? 'nav-aside' : 'isCollapse-nav-aside'">
+      <el-aside
+        :class="!data.isCollapse ? 'nav-aside' : 'isCollapse-nav-aside'"
+      >
         <!-- <div class="isCollapse" @click="isCollapse = !isCollapse">
           <i :class="!isCollapse ? 'el-icon-s-fold' : 'el-icon-s-unfold'"></i>
         </div> -->
@@ -99,7 +104,7 @@ export default {
           @open="handleOpen"
           @select="handleSelect"
           @close="handleClose"
-          :collapse="isCollapse"
+          :collapse="data.isCollapse"
         >
           <el-menu-item index="/main">
             <i class="el-icon-data-analysis"></i>
@@ -129,6 +134,10 @@ export default {
               </el-menu-item>
             </el-menu-item-group>
           </el-submenu>
+          <el-menu-item index="/error">
+            <i class="el-icon-data-analysis"></i>
+            <span slot="title">问题日志</span>
+          </el-menu-item>
         </el-menu>
       </el-aside>
       <el-main>

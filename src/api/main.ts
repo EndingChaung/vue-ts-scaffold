@@ -4,12 +4,12 @@ export const getData = () => {
   return Api.getData();
 };
 export const ReportStatistics = (
-  StartTime: Date | string,
-  EndTime: Date | string
+  STime: Date | string,
+  ETime: Date | string
 ) => {
   let params = {
-    StartTime: StartTime,
-    EndTime: EndTime
+    StartTime: STime,
+    EndTime: ETime
   };
   return Api.ReportStatistics(params, 'GET');
 };

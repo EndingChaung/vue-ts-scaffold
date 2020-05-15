@@ -3,6 +3,7 @@ import { MAINHOST, ISMOCK, conmomPrams } from '@/config';
 import requestConfig from '@/config/requestConfig';
 import { getToken } from '@/utils/common';
 import router from '@/router';
+import { Message } from 'element-ui';
 
 declare type Methods =
   | 'GET'
@@ -20,7 +21,6 @@ declare interface Datas {
 const baseURL =
   process.env.NODE_ENV === 'production' ? MAINHOST : location.origin;
 const token = getToken();
-console.log(token, '======================request============================');
 
 class HttpRequest {
   public queue: any; // 请求的url集合
@@ -47,7 +47,7 @@ class HttpRequest {
         return config;
       },
       (error: any) => {
-        console.error(error);
+        Message(error);
       }
     );
     // 响应拦截
@@ -69,7 +69,7 @@ class HttpRequest {
         if (url) {
           this.destroy(url);
         }
-        console.error(error);
+        Message(error);
       }
     );
   }
@@ -89,10 +89,11 @@ const requestFail = (res: AxiosResponse) => {
   }
 
   return {
-    err: console.error({
-      code: res.data.errcode || res.data.code,
-      msg: res.data.errmsg || errStr
-    })
+    err: Message(res.data.message || errStr)
+    // console.error({
+    //   code: res.data.errcode || res.data.code,
+    //   msg: res.data.message || errStr
+    // }),
   };
 };
 
@@ -129,7 +130,7 @@ const Api = (() => {
   const fun = (opts: AxiosRequestConfig | string) => {
     return async (data = {}, method: Methods = 'GET') => {
       if (!token) {
-        console.error('No Token');
+        Message('登录状态失效，请重新登录');
         return router.replace({ name: 'login' });
       }
       const newOpts = conbineOptions(opts, data, method);

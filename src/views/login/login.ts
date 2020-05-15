@@ -1,5 +1,5 @@
 import { Component, Vue } from 'vue-property-decorator';
-// import { Getter, Action } from 'vuex-class';
+import { Getter, Action } from 'vuex-class';
 import { LoginData } from '@/types/views/login.interface';
 import { setToken } from '@/utils/common';
 
@@ -11,7 +11,12 @@ export default class Login extends Vue {
   // @Getter login.author
 
   // Action
-  // @Action GET_DATA_ASYN
+  @Action UPDATE_STATE_ASYN: (arg0: {
+    main: {
+      mainauthor: undefined;
+      navActive: string;
+    };
+  }) => void;
 
   // data
   data: LoginData = {
@@ -43,6 +48,13 @@ export default class Login extends Vue {
     const data = this.data.form;
     if (data.name === 'admin' && data.pass === '1qazxsw2') {
       setToken('123456');
+      const main_state = {
+        main: {
+          mainauthor: undefined,
+          navActive: '/main'
+        }
+      };
+      this.UPDATE_STATE_ASYN(main_state);
       const router: any = this.$router;
       router.push('/main');
     } else {

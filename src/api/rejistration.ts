@@ -1,26 +1,22 @@
 import Api from '@/utils/request';
 
-export const getListData = (
-  ReportType: number,
-  PageIndex: number,
-  PageCount: number
-) => {
+export const getListData = (RType: number, PIndex: number, PCount: number) => {
   let params = {
-    ReportType: ReportType,
-    PageIndex: PageIndex,
-    PageCount: PageCount
+    ReportType: RType,
+    PageIndex: PIndex,
+    PageCount: PCount
   };
   return Api.getListData(params, 'GET');
 };
-export const SearchRegisterReportInfo = (AccountId: string) => {
+export const SearchRegisterReportInfo = (AId: string) => {
   let params = {
-    AccountId: AccountId
+    AccountId: AId
   };
   return Api.SearchRegisterReportInfo(params, 'GET');
 };
-export const downReport = (ReportId: number) => {
+export const downReport = (RId: number) => {
   let params = {
-    Id: ReportId
+    Id: RId
   };
   return Api.downReport(params, 'GET');
 };

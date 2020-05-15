@@ -32,10 +32,6 @@ router.beforeEach((to, from, next) => {
     });
   } else {
     if (token) {
-      console.log(
-        token,
-        '==========================router======================='
-      );
       next(); // 跳转
     } else {
       next({

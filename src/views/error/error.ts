@@ -1,25 +1,28 @@
+import { ErrorData } from '@/types/views/error.interface';
 import { Component, Vue } from 'vue-property-decorator';
-import { getDate } from '@/utils/common';
-import { MainData } from '@/types/views/main.interface';
-import * as MainApi from '@/api/main';
-// import { Action } from 'vuex-class';
+import { Getter, Action } from 'vuex-class';
+import { base64ToBlob, getDate } from '@/utils/common';
+import * as ErrorApi from '@/api/error';
 
 @Component({})
-export default class Main extends Vue {
+export default class Realname extends Vue {
   // Getter
-  // @Getter main.author
+  // @Getter realname.author
 
   // Action
-  // @Action UPDATE_STATE_ASYN: any;
+  // @Action GET_DATA_ASYN
 
   // data
-  data: MainData = {
-    pageName: 'main',
-    T_ErrorlogNumber: 0,
-    IssueReportNumber: 0,
-    IssueLogNumber: 0,
-    CosReportNumber: 0,
-    CosLogNumber: 0,
+  data: ErrorData = {
+    pageName: 'error',
+    maxHeight: window.innerHeight - 265,
+    drawer: false,
+    loading: false,
+    byteData: undefined,
+    total: 0,
+    currentPage: 1,
+    fileTypes: ['注册日志', '个人实名日志', '签署日志'],
+    pushTypes: ['失败', '成功'],
     formInline: {
       timeRange: []
     },
@@ -58,13 +61,12 @@ export default class Main extends Vue {
           }
         }
       ]
-    }
+    },
+    tableData: []
   };
 
   created() {
-    const end = getDate('yyyy-MM-dd HH:mm:ss');
-    const star = '1990-01-01 00:00:00';
-    this.getData(star, end);
+    //
   }
 
   activated() {
@@ -72,7 +74,10 @@ export default class Main extends Vue {
   }
 
   mounted() {
-    //
+    this.data.loading = true;
+    const end = getDate('yyyy-MM-dd HH:mm:ss');
+    const star = '1990-01-01 00:00:00';
+    this.getDataList(star, end, 1, 10);
   }
 
   // 初始化函数
@@ -80,14 +85,38 @@ export default class Main extends Vue {
     //
   }
 
-  getData(StartTime: Date | string, EndTime: Date | string) {
-    MainApi.ReportStatistics(StartTime, EndTime).then((res: any) => {
-      this.data.CosLogNumber = res.CosLogNumber;
-      this.data.CosReportNumber = res.CosReportNumber;
-      this.data.IssueLogNumber = res.IssueLogNumber;
-      this.data.IssueReportNumber = res.IssueReportNumber;
-      this.data.T_ErrorlogNumber = res.T_ErrorlogNumber;
+  getDataList(
+    StartTime: Date | string,
+    EndTime: Date | string,
+    page: number,
+    pageCount: number
+  ) {
+    ErrorApi.SearchLogList(StartTime, EndTime, page, pageCount).then(
+      (res: any) => {
+        this.data.tableData = res.fileLogModel;
+        this.data.total = res.logCount;
+        this.data.loading = false;
+      }
+    );
+  }
+
+  handleClick(row: any) {
+    this.data.drawer = true;
+    ErrorApi.DownloadLog(row.Id).then((res: any) => {
+      const base64 = res.downFileModel.FileByte;
+      base64ToBlob(base64, 'text/plain').then(result => {
+        const url = URL.createObjectURL(result);
+        this.data.byteData = url;
+      });
     });
+  }
+
+  changePage(val: any) {
+    this.data.currentPage = val;
+    const sTime = this.data.formInline.timeRange[0] || '1990-01-01 00:00:00';
+    const eTime =
+      this.data.formInline.timeRange[1] || getDate('yyyy-MM-dd HH:mm:ss');
+    this.getDataList(sTime, eTime, val, 10);
   }
 
   onSubmit(formName: string | number) {
@@ -96,7 +125,7 @@ export default class Main extends Vue {
       if (valid) {
         const sTime = this.data.formInline.timeRange[0];
         const eTime = this.data.formInline.timeRange[1];
-        this.getData(sTime, eTime);
+        this.getDataList(sTime, eTime, this.data.currentPage, 10);
       } else {
         return false;
       }
@@ -110,6 +139,6 @@ export default class Main extends Vue {
     // 重新获取数值
     const end = getDate('yyyy-MM-dd HH:mm:ss');
     const star = '1990-01-01 00:00:00';
-    this.getData(star, end);
+    this.getDataList(star, end, 1, 10);
   }
 }

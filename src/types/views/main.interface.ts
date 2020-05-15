@@ -17,6 +17,7 @@ export interface MainData {
 export interface MainState {
   main: {
     mainauthor: undefined;
+    navActive: undefined;
   };
 }
 

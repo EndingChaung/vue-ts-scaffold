@@ -41,6 +41,15 @@
         label="用户编号"
       ></el-table-column>
       <el-table-column align="center" prop="ReportName" label="报告名称">
+        <template slot-scope="scope">
+          <el-tooltip
+            :content="scope.row.ReportName"
+            placement="bottom"
+            effect="light"
+          >
+            <span>{{ scope.row.ReportName }}</span>
+          </el-tooltip>
+        </template>
       </el-table-column>
       <!-- <el-table-column
         align="center"

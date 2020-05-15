@@ -1,7 +1,7 @@
 /**
  * 线上环境
  */
-export const ONLINEHOST: string = 'https://xxx.com';
+export const ONLINEHOST: string = '';
 
 /**
  * 测试环境

@@ -4,13 +4,15 @@ import * as MainApi from '@/api/main';
 
 const state: MainState = {
   main: {
-    mainauthor: undefined
+    mainauthor: undefined,
+    navActive: undefined
   }
 };
 
 // 强制使用getter获取state
 const getters: GetterTree<MainState, any> = {
-  mainauthor: (state: MainState) => state.main.mainauthor
+  mainauthor: (state: MainState) => state.main.mainauthor,
+  navActive: (state: MainState) => state.main.navActive
 };
 
 // 更改state
@@ -30,9 +32,6 @@ const actions: ActionTree<MainState, any> = {
   UPDATE_STATE_ASYN({ commit, state: MainState }, data: MainState) {
     commit('UPDATE_STATE', data);
   }
-  // GET_DATA_ASYN({ commit, state: LoginState }) {
-  //   Main.getData()
-  // }
 };
 
 export default {

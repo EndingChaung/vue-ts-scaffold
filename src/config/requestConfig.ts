@@ -5,5 +5,7 @@ export default {
   SearchSignReport: '/v1/SearchReport/SearchSignReport',
   SearchRealNameReportInfo: '/v1/SearchReport/SearchRealNameReportInfo',
   SearchRegisterReportInfo: '/v1/SearchReport/SearchRegisterReportInfo',
-  ReportStatistics: '/v1/SearchReport/ReportStatistics'
+  ReportStatistics: '/v1/SearchReport/ReportStatistics',
+  SearchLogList: '/v1/SearchReport/SearchLogList',
+  DownloadLog: '/v1/SearchReport/DownloadLog'
 };

@@ -3,9 +3,9 @@ import Api from '@/utils/request';
 export const getData = () => {
   return Api.getData();
 };
-export const SearchRealNameReportInfo = (AccountId: string) => {
+export const SearchRealNameReportInfo = (AId: string) => {
   let params = {
-    AccountId: AccountId
+    AccountId: AId
   };
   return Api.SearchRealNameReportInfo(params, 'GET');
 };
