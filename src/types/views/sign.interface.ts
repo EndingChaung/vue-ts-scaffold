@@ -11,6 +11,7 @@ export interface SignData {
   maxHeight: number;
   total: number;
   currentPage: number;
+  pageType: number;
   byteData?: any;
 }
 

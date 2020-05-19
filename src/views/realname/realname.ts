@@ -22,6 +22,11 @@ export default class Realname extends Vue {
     byteData: undefined,
     total: 0,
     currentPage: 1,
+    rules: {
+      accountId: [
+        { required: true, message: '请输入AccountId', trigger: 'change' }
+      ]
+    },
     formInline: {
       accountId: ''
     },
@@ -79,15 +84,23 @@ export default class Realname extends Vue {
   }
 
   // 提交表单筛选条件
-  onSubmit() {
-    this.data.loading = true;
-    const aId = this.data.formInline.accountId;
-    this.SearchRealNameReportInfo(aId);
+  onSubmit(formName: string | number) {
+    const ref: any = this.$refs[formName];
+    ref.validate((valid: any) => {
+      if (valid) {
+        this.data.loading = true;
+        const aId = this.data.formInline.accountId;
+        this.SearchRealNameReportInfo(aId);
+      } else {
+        return false;
+      }
+    });
   }
 
   resetForm(formName: string | number) {
     const that = this;
     const ref: any = this.$refs[formName];
+    this.data.currentPage = 1;
     ref.resetFields();
     that.getDataList(2, 1, 10);
   }

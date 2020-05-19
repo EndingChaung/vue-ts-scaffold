@@ -22,6 +22,7 @@ export default class About extends Vue {
     byteData: undefined,
     total: 0,
     currentPage: 1,
+    pageType: 0,
     maxHeight: window.innerHeight - 265,
     formInline: {
       accountId: '',
@@ -56,12 +57,19 @@ export default class About extends Vue {
     });
   }
 
-  searchReportInfo(accountId: string, contractNo: string) {
-    SignApi.SearchSignReport(accountId, contractNo).then((res: any) => {
-      this.data.tableData = res.reportModel;
-      this.data.total = res.reportCount;
-      this.data.loading = false;
-    });
+  searchReportInfo(
+    accountId: string,
+    contractNo: string,
+    page: number,
+    pageCount: number
+  ) {
+    SignApi.SearchSignReport(accountId, contractNo, page, pageCount).then(
+      (res: any) => {
+        this.data.tableData = res.reportModel;
+        this.data.total = res.reportCount;
+        this.data.loading = false;
+      }
+    );
   }
 
   handleClick(row: any) {
@@ -75,21 +83,32 @@ export default class About extends Vue {
     });
   }
 
-  changePage(val: any) {
-    this.data.currentPage = val;
-    this.getDataList(3, val, 10);
+  changePage(val: any, type: number) {
+    console.log(val, type);
+    if (type === 1) {
+      const aId = this.data.formInline.accountId;
+      const cId = this.data.formInline.countractId;
+      this.data.currentPage = val;
+      this.searchReportInfo(aId, cId, val, 10);
+    } else {
+      this.data.currentPage = val;
+      this.getDataList(3, val, 10);
+    }
   }
 
   onSubmit() {
     this.data.loading = true;
+    this.data.pageType = 1;
     const aId = this.data.formInline.accountId;
     const cId = this.data.formInline.countractId;
-    this.searchReportInfo(aId, cId);
+    this.searchReportInfo(aId, cId, 1, 10);
   }
 
   resetForm(formName: string | number) {
     const that = this;
     const ref: any = this.$refs[formName];
+    this.data.pageType = 0;
+    this.data.currentPage = 1;
     ref.resetFields();
     that.getDataList(3, 1, 10);
   }

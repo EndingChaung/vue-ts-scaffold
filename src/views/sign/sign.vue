@@ -80,7 +80,11 @@
       layout="prev, pager, next"
       :total="data.total"
       :current-page="data.currentPage"
-      @current-change="changePage"
+      @current-change="
+        item => {
+          changePage(item, data.pageType);
+        }
+      "
     >
     </el-pagination>
     <el-drawer

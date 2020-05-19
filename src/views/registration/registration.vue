@@ -4,6 +4,7 @@
       size="small"
       :inline="true"
       :model="data.formInline"
+      :rules="data.rules"
       ref="registerForm"
       class="demo-form-inline"
     >
@@ -14,7 +15,9 @@
         ></el-input>
       </el-form-item>
       <el-form-item>
-        <el-button type="primary" @click="onSubmit">查 询</el-button>
+        <el-button type="primary" @click="onSubmit('registerForm')">
+          查 询
+        </el-button>
         <el-button @click="resetForm('registerForm')">重 置</el-button>
       </el-form-item>
     </el-form>

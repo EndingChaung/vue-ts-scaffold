@@ -129,7 +129,7 @@ const Api = (() => {
   const requestList: any = requestConfig;
   const fun = (opts: AxiosRequestConfig | string) => {
     return async (data = {}, method: Methods = 'GET') => {
-      if (!token) {
+      if (!getToken()) {
         Message('登录状态失效，请重新登录');
         return router.replace({ name: 'login' });
       }

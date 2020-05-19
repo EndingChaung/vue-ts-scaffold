@@ -2,6 +2,7 @@
 export interface RegistrationData {
   pageName: string;
   tableData: any[];
+  rules: object;
   formInline: {
     accountId: string;
   };

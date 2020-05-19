@@ -19,6 +19,11 @@ export default class Rejistration extends Vue {
     loading: false,
     maxHeight: window.innerHeight - 265,
     byteData: undefined,
+    rules: {
+      accountId: [
+        { required: true, message: '请输入AccountId', trigger: 'change' }
+      ]
+    },
     formInline: {
       accountId: ''
     },
@@ -62,6 +67,7 @@ export default class Rejistration extends Vue {
   }
 
   handleClick(row: any) {
+    this.data.byteData = '';
     this.data.drawer = true;
     RejistrationApi.downReport(row.Id).then((res: any) => {
       const base64 = res.downReportModel.FileByte;
@@ -78,15 +84,23 @@ export default class Rejistration extends Vue {
   }
 
   // 提交表单筛选条件
-  onSubmit() {
-    this.data.loading = true;
-    const aId = this.data.formInline.accountId;
-    this.SearchRegisterReportInfo(aId);
+  onSubmit(formName: string | number) {
+    const ref: any = this.$refs[formName];
+    ref.validate((valid: any) => {
+      if (valid) {
+        this.data.loading = true;
+        const aId = this.data.formInline.accountId;
+        this.SearchRegisterReportInfo(aId);
+      } else {
+        return false;
+      }
+    });
   }
 
   resetForm(formName: string | number) {
     const that = this;
     const ref: any = this.$refs[formName];
+    this.data.currentPage = 1;
     ref.resetFields();
     that.getDataList(1, 1, 10);
   }

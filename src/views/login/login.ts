@@ -13,7 +13,7 @@ export default class Login extends Vue {
   // Action
   @Action UPDATE_STATE_ASYN: (arg0: {
     main: {
-      mainauthor: undefined;
+      mainauthor: undefined | string;
       navActive: string;
     };
   }) => void;
@@ -50,7 +50,7 @@ export default class Login extends Vue {
       setToken('123456');
       const main_state = {
         main: {
-          mainauthor: undefined,
+          mainauthor: '123456',
           navActive: '/main'
         }
       };
