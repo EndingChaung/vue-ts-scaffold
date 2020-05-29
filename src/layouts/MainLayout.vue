@@ -134,10 +134,24 @@ export default class MainLayout extends Vue {
               </el-menu-item>
             </el-menu-item-group>
           </el-submenu>
-          <el-menu-item index="/error">
-            <i class="el-icon-data-analysis"></i>
-            <span slot="title">问题日志</span>
-          </el-menu-item>
+          <el-submenu index="/error">
+            <template slot="title">
+              <i class="el-icon-warning"></i>
+              <span slot="title">问题记录</span>
+            </template>
+            <el-menu-item-group>
+              <el-menu-item index="/logerror">
+                <i class="el-icon-folder-delete"></i>
+                <span>问题日志记录</span>
+              </el-menu-item>
+            </el-menu-item-group>
+            <el-menu-item-group>
+              <el-menu-item index="/pusherror">
+                <i class="el-icon-s-release"></i>
+                <span>上传失败记录</span>
+              </el-menu-item>
+            </el-menu-item-group>
+          </el-submenu>
         </el-menu>
       </el-aside>
       <el-main>

@@ -1,22 +1,22 @@
-import { ErrorState } from '@/types/views/error.interface';
+import { LogErrorState } from '@/types/views/logerror.interface';
 import { GetterTree, MutationTree, ActionTree } from 'vuex';
-import * as ErrorApi from '@/api/error';
+import * as ErrorApi from '@/api/logerror';
 
-const state: ErrorState = {
+const state: LogErrorState = {
   error: {
     errorauthor: undefined
   }
 };
 
 // 强制使用getter获取state
-const getters: GetterTree<ErrorState, any> = {
-  errorauthor: (state: ErrorState) => state.error.errorauthor
+const getters: GetterTree<LogErrorState, any> = {
+  errorauthor: (state: LogErrorState) => state.error.errorauthor
 };
 
 // 更改state
-const mutations: MutationTree<ErrorState> = {
+const mutations: MutationTree<LogErrorState> = {
   // 更新state都用该方法
-  UPDATE_STATE(state: ErrorState, data: ErrorState) {
+  UPDATE_STATE(state: LogErrorState, data: LogErrorState) {
     for (const key in data) {
       if (!data.hasOwnProperty(key)) {
         return;
@@ -26,8 +26,8 @@ const mutations: MutationTree<ErrorState> = {
   }
 };
 
-const actions: ActionTree<ErrorState, any> = {
-  UPDATE_STATE_ASYN({ commit, state: ErrorState }, data: ErrorState) {
+const actions: ActionTree<LogErrorState, any> = {
+  UPDATE_STATE_ASYN({ commit, state: LogErrorState }, data: LogErrorState) {
     commit('UPDATE_STATE', data);
   }
   // GET_DATA_ASYN({ commit, state: LoginState }) {

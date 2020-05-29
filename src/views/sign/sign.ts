@@ -1,4 +1,5 @@
 import { Component, Vue } from 'vue-property-decorator';
+import { Message } from 'element-ui';
 import { Getter, Action } from 'vuex-class';
 import { base64ToBlob } from '@/utils/common';
 import { SignData } from '@/types/views/sign.interface';
@@ -27,6 +28,14 @@ export default class About extends Vue {
     formInline: {
       accountId: '',
       countractId: ''
+    },
+    rules: {
+      // accountId: [
+      //   { required: true, message: '请输入AccountId', trigger: 'change' }
+      // ],
+      // countractId: [
+      //   { required: true, message: '请输入合同编号', trigger: 'change' }
+      // ]
     },
     tableData: []
   };
@@ -84,7 +93,6 @@ export default class About extends Vue {
   }
 
   changePage(val: any, type: number) {
-    console.log(val, type);
     if (type === 1) {
       const aId = this.data.formInline.accountId;
       const cId = this.data.formInline.countractId;
@@ -96,14 +104,6 @@ export default class About extends Vue {
     }
   }
 
-  onSubmit() {
-    this.data.loading = true;
-    this.data.pageType = 1;
-    const aId = this.data.formInline.accountId;
-    const cId = this.data.formInline.countractId;
-    this.searchReportInfo(aId, cId, 1, 10);
-  }
-
   resetForm(formName: string | number) {
     const that = this;
     const ref: any = this.$refs[formName];
@@ -111,5 +111,24 @@ export default class About extends Vue {
     this.data.currentPage = 1;
     ref.resetFields();
     that.getDataList(3, 1, 10);
+  }
+
+  onSubmit(formName: string | number) {
+    const ref: any = this.$refs[formName];
+    if (!ref.model.accountId && !ref.model.countractId) {
+      Message.warning('请至少提供一个参数');
+      return false;
+    }
+    ref.validate((valid: any) => {
+      if (valid) {
+        this.data.loading = true;
+        this.data.pageType = 1;
+        const aId = this.data.formInline.accountId;
+        const cId = this.data.formInline.countractId;
+        this.searchReportInfo(aId, cId, 1, 10);
+      } else {
+        return false;
+      }
+    });
   }
 }

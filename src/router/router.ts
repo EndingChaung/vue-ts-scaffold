@@ -8,7 +8,8 @@ import Main from '@/views/main/route';
 import Registration from '@/views/registration/route';
 import RealnameData from '@/views/realname/route';
 import Sign from '@/views/sign/route';
-import ErrorR from '@/views/error/route';
+import ErrorR from '@/views/logerror/route';
+import ErrorP from '@/views/pusherror/route';
 
 export default [
   {
@@ -44,6 +45,13 @@ export default [
       keepAlive: true,
       title: 'Layout'
     },
-    children: [...Main, ...Registration, ...RealnameData, ...Sign, ...ErrorR]
+    children: [
+      ...Main,
+      ...Registration,
+      ...RealnameData,
+      ...Sign,
+      ...ErrorR,
+      ...ErrorP
+    ]
   }
 ];

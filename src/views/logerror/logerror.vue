@@ -40,62 +40,50 @@
       <el-table-column
         align="center"
         fixed
-        prop="CreateDate"
+        prop="create_date"
         label="日期"
         width="150"
       >
       </el-table-column>
-      <el-table-column align="center" prop="url" label="COS地址">
+      <el-table-column align="center" prop="err_msg" label="错误信息">
         <template slot-scope="scope">
           <el-tooltip
-            :content="scope.row.url"
+            :content="scope.row.err_msg"
             placement="bottom"
             effect="light"
           >
-            <span>{{ scope.row.url }}</span>
+            <span>{{ scope.row.err_msg }}</span>
           </el-tooltip>
         </template>
       </el-table-column>
-      <el-table-column align="center" prop="FileName" label="文件名称">
+      <el-table-column align="center" prop="file_nas_path" label="文件地址">
         <template slot-scope="scope">
           <el-tooltip
-            :content="scope.row.FileName"
+            :content="scope.row.file_nas_path"
             placement="bottom"
             effect="light"
           >
-            <span>{{ scope.row.FileName }}</span>
+            <span>{{ scope.row.file_nas_path }}</span>
           </el-tooltip>
         </template>
       </el-table-column>
       <el-table-column
         align="center"
-        prop="FileType"
+        prop="log_type"
         label="文件类型"
         width="120"
       >
         <template slot-scope="scope">
-          <span>{{ data.fileTypes[scope.row.FileType - 1] }}</span>
+          <span>{{ data.fileTypes[scope.row.log_type - 1] }}</span>
         </template>
       </el-table-column>
-      <el-table-column
-        align="center"
-        prop="WebsiteStatus"
-        label="上传状态"
-        width="120"
-      >
-        <template slot-scope="scope">
-          <span>{{ data.pushTypes[scope.row.WebsiteStatus] }}</span>
-        </template>
-      </el-table-column>
-      <el-table-column align="center" prop="Id" label="报告Id" width="120">
-      </el-table-column>
-      <el-table-column align="center" fixed="right" label="操作" width="150">
+      <!-- <el-table-column align="center" fixed="right" label="操作" width="150">
         <template slot-scope="scope">
           <el-button type="danger" size="mini" @click="handleClick(scope.row)"
-            >查看报告</el-button
+            >查看日志</el-button
           >
         </template>
-      </el-table-column>
+      </el-table-column> -->
     </el-table>
     <el-pagination
       class="report-pagination"
@@ -125,8 +113,8 @@
   </div>
 </template>
 
-<script lang="ts" src="./error.ts"></script>
+<script lang="ts" src="./logerror.ts"></script>
 
 <style scoped lang="stylus">
-@import './error.styl'
+@import './logerror.styl'
 </style>

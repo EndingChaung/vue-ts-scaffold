@@ -2,6 +2,7 @@
 export interface SignData {
   pageName: string;
   tableData: any[];
+  rules: object;
   formInline: {
     accountId: string;
     countractId: string;

@@ -1,8 +1,8 @@
-import { ErrorData } from '@/types/views/error.interface';
+import { LogErrorData } from '@/types/views/logerror.interface';
 import { Component, Vue } from 'vue-property-decorator';
 import { Getter, Action } from 'vuex-class';
 import { base64ToBlob, getDate } from '@/utils/common';
-import * as ErrorApi from '@/api/error';
+import * as LogErrorApi from '@/api/logerror';
 
 @Component({})
 export default class Realname extends Vue {
@@ -13,7 +13,7 @@ export default class Realname extends Vue {
   // @Action GET_DATA_ASYN
 
   // data
-  data: ErrorData = {
+  data: LogErrorData = {
     pageName: 'error',
     maxHeight: window.innerHeight - 265,
     drawer: false,
@@ -91,10 +91,10 @@ export default class Realname extends Vue {
     page: number,
     pageCount: number
   ) {
-    ErrorApi.SearchLogList(StartTime, EndTime, page, pageCount).then(
+    LogErrorApi.SearchErrorLogList(StartTime, EndTime, page, pageCount).then(
       (res: any) => {
-        this.data.tableData = res.fileLogModel;
-        this.data.total = res.logCount;
+        this.data.tableData = res.fileErrorLogModel;
+        this.data.total = res.errorlogCount;
         this.data.loading = false;
       }
     );
@@ -102,7 +102,7 @@ export default class Realname extends Vue {
 
   handleClick(row: any) {
     this.data.drawer = true;
-    ErrorApi.DownloadLog(row.Id).then((res: any) => {
+    LogErrorApi.DownloadLog(row.Id).then((res: any) => {
       const base64 = res.downFileModel.FileByte;
       base64ToBlob(base64, 'text/plain').then(result => {
         const url = URL.createObjectURL(result);

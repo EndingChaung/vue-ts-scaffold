@@ -1,7 +1,7 @@
 /**
  * 线上正式环境
  */
-export const ONLINEHOST: string = 'http://172.19.96.12:8081';
+export const ONLINEHOST: string = 'http://175.24.253.107:8081';
 
 /**
  * 线上UAT环境
@@ -26,7 +26,7 @@ export const ISMOCK: boolean = false;
 /**
  * 当前的host  ONLINEHOST | ONLINEUATHOST | QAHOST | MOCKHOST
  */
-export const MAINHOST: string = ONLINEUATHOST;
+export const MAINHOST: string = ONLINEHOST;
 
 /**
  * 请求的公共参数

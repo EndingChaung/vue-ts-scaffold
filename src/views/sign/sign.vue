@@ -4,23 +4,26 @@
       size="small"
       :inline="true"
       :model="data.formInline"
+      :rules="data.rules"
       ref="signForm"
       class="demo-form-inline"
     >
       <el-form-item prop="accountId" label="用户唯一标识：">
         <el-input
-          v-model="data.formInline.accountId"
+          v-model.trim="data.formInline.accountId"
           placeholder="请填写AccoundId"
         ></el-input>
       </el-form-item>
       <el-form-item prop="countractId" label="合同编号：">
         <el-input
-          v-model="data.formInline.countractId"
+          v-model.trim="data.formInline.countractId"
           placeholder="请填写合同编号"
         ></el-input>
       </el-form-item>
       <el-form-item>
-        <el-button type="primary" @click="onSubmit">查 询</el-button>
+        <el-button type="primary" @click="onSubmit('signForm')">
+          查 询
+        </el-button>
         <el-button @click="resetForm('signForm')">重 置</el-button>
       </el-form-item>
     </el-form>

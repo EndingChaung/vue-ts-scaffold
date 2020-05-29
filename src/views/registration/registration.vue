@@ -10,7 +10,7 @@
     >
       <el-form-item prop="accountId" label="用户唯一标识：">
         <el-input
-          v-model="data.formInline.accountId"
+          v-model.trim="data.formInline.accountId"
           placeholder="请填写AccoundId"
         ></el-input>
       </el-form-item>

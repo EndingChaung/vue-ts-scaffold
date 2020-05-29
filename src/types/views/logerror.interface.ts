@@ -1,5 +1,5 @@
 // error.Data 参数类型
-export interface ErrorData {
+export interface LogErrorData {
   pageName: string;
   tableData: any[];
   fileTypes: string[];
@@ -18,7 +18,7 @@ export interface ErrorData {
 }
 
 // VUEX error.State 参数类型
-export interface ErrorState {
+export interface LogErrorState {
   error: {
     errorauthor: undefined;
   };
