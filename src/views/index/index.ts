@@ -17,7 +17,9 @@ export default class Index extends Vue {
     pageName: 'index',
   };
 
-  created() {}
+  created() {
+    //
+  }
 
   activated() {
     //
