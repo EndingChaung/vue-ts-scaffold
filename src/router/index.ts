@@ -8,11 +8,11 @@ Vue.use(Router);
 const router = new Router({
   routes,
   mode: 'history',
-  base: process.env.BASE_URL
+  base: process.env.BASE_URL,
 });
 
 // 登陆页面路由 name
-const LOGIN_PAGE_NAME = 'login';
+const LOGIN_PAGE_NAME = 'index';
 
 // 跳转之前
 router.beforeEach((to, from, next) => {
@@ -20,7 +20,7 @@ router.beforeEach((to, from, next) => {
   if (!token && to.name !== LOGIN_PAGE_NAME) {
     // 未登录且要跳转的页面不是登录页
     next({
-      name: LOGIN_PAGE_NAME // 跳转到登录页
+      name: 'index', // 跳转到登录页
     });
   } else if (!token && to.name === LOGIN_PAGE_NAME) {
     // 未登陆且要跳转的页面是登录页
@@ -28,21 +28,21 @@ router.beforeEach((to, from, next) => {
   } else if (token && to.name === LOGIN_PAGE_NAME) {
     // 已登录且要跳转的页面是登录页
     next({
-      name: 'main__index' // 跳转到 main 页
+      name: 'index', // 跳转到 main 页
     });
   } else {
     if (token) {
       next(); // 跳转
     } else {
       next({
-        name: LOGIN_PAGE_NAME
+        name: 'index',
       });
     }
   }
 });
 
 // 跳转之后
-router.afterEach(to => {
+router.afterEach((to) => {
   //
 });
 

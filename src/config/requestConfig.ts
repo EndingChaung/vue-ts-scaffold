@@ -8,5 +8,5 @@ export default {
   ReportStatistics: '/v1/SearchReport/ReportStatistics',
   SearchLogList: '/v1/SearchReport/SearchLogList',
   SearchErrorLogList: 'v1/SearchReport/SearchErrorLogList',
-  DownloadLog: '/v1/SearchReport/DownloadLog'
+  DownloadLog: '/v1/SearchReport/DownloadLog',
 };

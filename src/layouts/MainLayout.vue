@@ -12,20 +12,20 @@ export default class MainLayout extends Vue {
       {
         title: '数据统计',
         name: '1',
-        content: 'Tab 1 content'
+        content: 'Tab 1 content',
       },
       {
         title: 'Tab 2',
         name: '2',
-        content: 'Tab 2 content'
+        content: 'Tab 2 content',
       },
       {
         title: 'Tab 3',
         name: '3',
-        content: 'Tab 3 content'
-      }
+        content: 'Tab 3 content',
+      },
     ],
-    tabIndex: 0
+    tabIndex: 0,
   };
 
   get keepAliveInclude() {

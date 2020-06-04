@@ -82,14 +82,14 @@ class HttpRequest {
 
 // 请求失败
 const requestFail = (res: AxiosResponse) => {
-  let errStr = '网络繁忙！';
+  const errStr = '网络繁忙！';
   // token失效重新登陆
   if (res.data.code === 1000001) {
     return router.replace({ name: 'login' });
   }
 
   return {
-    err: Message(res.data.message || errStr)
+    err: Message(res.data.message || errStr),
     // console.error({
     //   code: res.data.errcode || res.data.code,
     //   msg: res.data.message || errStr
@@ -112,7 +112,7 @@ const conbineOptions = (
     method: opts.method || data.method || method || 'GET',
     url: opts.url,
     header: { 'user-token': token },
-    baseURL
+    baseURL,
   };
   return options.method !== 'GET'
     ? Object.assign(options, { data: _data })
@@ -138,7 +138,7 @@ const Api = (() => {
       return res;
     };
   };
-  Object.keys(requestConfig).forEach(key => {
+  Object.keys(requestConfig).forEach((key) => {
     apiObj[key] = fun(requestList[key]);
   });
 

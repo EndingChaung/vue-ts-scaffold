@@ -9,17 +9,15 @@ export default class Index extends Vue {
   // Getter
   // @Getter index.author
   // Action
-  @Action
-  GET_DATA_ASYN!: () => void;
+  // @Action
+  // GET_DATA_ASYN!: () => void;
 
   // data
   data: IndexData = {
-    pageName: 'index'
+    pageName: 'index',
   };
 
-  created() {
-    this.GET_DATA_ASYN();
-  }
+  created() {}
 
   activated() {
     //

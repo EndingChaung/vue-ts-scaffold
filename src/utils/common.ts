@@ -33,8 +33,8 @@ export const getToken = () => {
  */
 export const getParams = (url: string) => {
   const keyValueArr = url.split('?')[1].split('&');
-  let paramObj: any = {};
-  keyValueArr.forEach(item => {
+  const paramObj: any = {};
+  keyValueArr.forEach((item) => {
     const keyValue = item.split('=');
     paramObj[keyValue[0]] = keyValue[1];
   });
@@ -67,7 +67,7 @@ export const getDate = (fmt: any) => {
     'd+': date.getDate(), // 日
     'H+': date.getHours(), // 小时
     'm+': date.getMinutes(), // 分
-    's+': date.getSeconds() // 秒
+    's+': date.getSeconds(), // 秒
     // 'q+': Math.floor((date.getMonth() + 3) / 3), // 季度
     // 'ss+': date.getMilliseconds() // 毫秒
   };
@@ -103,7 +103,7 @@ export const formatDate = (date: any, fmt: string) => {
     'm+': date.getMinutes(), // 分
     's+': date.getSeconds(), // 秒
     'q+': Math.floor((date.getMonth() + 3) / 3), // 季度
-    'ss+': date.getMilliseconds() // 毫秒
+    'ss+': date.getMilliseconds(), // 毫秒
   };
   if (/(y+)/.test(fmt)) {
     time = fmt.replace(
@@ -131,14 +131,14 @@ export const formatDate = (date: any, fmt: string) => {
 export const verifyPhone = (phone: string | number) => {
   const reg = /^1[34578][0-9]{9}$/;
   const _phone = phone.toString().trim();
-  let toastStr =
+  const toastStr =
     _phone === ''
       ? '手机号不能为空~'
       : !reg.test(_phone) && '请输入正确手机号~';
   return {
     errMsg: toastStr,
     done: !toastStr,
-    value: _phone
+    value: _phone,
   };
 };
 
@@ -148,7 +148,7 @@ export const verifyStr = (str: string | number, text: string) => {
   return {
     errMsg: toastStr,
     done: !toastStr,
-    value: _str
+    value: _str,
   };
 };
 
@@ -191,7 +191,7 @@ export function objClone(jsonObj: any) {
     return buf;
   } else if (jsonObj instanceof Object) {
     buf = {};
-    for (let k in jsonObj) {
+    for (const k in jsonObj) {
       buf[k] = objClone(jsonObj[k]);
     }
     return buf;
@@ -223,11 +223,11 @@ export function isBase64(str: string) {
 export function base64ToBlob(b64data = '', contentType = '', sliceSize = 512) {
   return new Promise((resolve, reject) => {
     // 使用 atob() 方法将数据解码
-    let byteCharacters = atob(b64data);
-    let byteArrays = [];
+    const byteCharacters = atob(b64data);
+    const byteArrays = [];
     for (let offset = 0; offset < byteCharacters.length; offset += sliceSize) {
-      let slice = byteCharacters.slice(offset, offset + sliceSize);
-      let byteNumbers = [];
+      const slice = byteCharacters.slice(offset, offset + sliceSize);
+      const byteNumbers = [];
       for (let i = 0; i < slice.length; i++) {
         byteNumbers.push(slice.charCodeAt(i));
       }
@@ -236,11 +236,11 @@ export function base64ToBlob(b64data = '', contentType = '', sliceSize = 512) {
       byteArrays.push(new Uint8Array(byteNumbers));
     }
     let result = new Blob(byteArrays, {
-      type: contentType
+      type: contentType,
     });
     result = Object.assign(result, {
       // jartto: 这里一定要处理一下 URL.createObjectURL
-      preview: URL.createObjectURL(result)
+      preview: URL.createObjectURL(result),
     });
     resolve(result);
   });
